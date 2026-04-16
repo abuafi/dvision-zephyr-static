@@ -502,11 +502,15 @@ async function getAnimationInfo() {
 
 async function getAnimationData() {
     await getAnimationInfo()
-    for (let i = 0; i < animationInfo.numberOfFrames; i++) {
-        let res = await fetch(`data/dvision-frame-data/dvision-frame-data-${i}.json`)
-        let data = await res.json()
-        frames.push(data)
-        console.log(data)
+    let res = await fetch(`data/dvision-frame-data.jsonl`)
+    let text = await res.text()
+    let lines = text.trim().split('\n')
+    for (let line of lines) {
+        if (line.trim()) { 
+            let data = JSON.parse(line)
+            frames.push(data)
+            console.log(data)
+        }
     }
 }
 
