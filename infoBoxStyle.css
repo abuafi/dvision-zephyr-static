@@ -1,0 +1,239 @@
+.file-name-history {
+    font-size: 12px;
+    color: #999 !important;
+    margin-bottom: 4px;
+    font-weight: normal;
+}
+
+.file-name-arrow {
+    font-family: monospace;
+    color: #aaa !important;
+    margin: 0 2px;
+}
+
+.file-name-primary {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.pattern-section {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+    font-size: 13px;
+    color: #666;
+}
+
+.pattern-section div {
+    margin-bottom: 2px;
+}
+
+.history-section h3 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.tracks-list-container {
+    padding: 0 20px 20px 20px;
+    margin: 0 0 6px 0;
+    overflow: scroll;
+}
+
+.tracks-list {
+    padding: 0;
+    margin: 0;
+}
+
+.track-line {
+    padding: 0;
+}
+
+/* .track-line:after {
+    content: "";
+    display: inline-block;
+    height: 0.5em;
+    vertical-align: bottom;
+    width: 100%;
+    margin-right: -100%;
+    margin-left: 10px;
+    border-top: 1px solid black;
+} */
+
+.track-scroll {
+    width: 100%;
+}
+
+.year-track {
+    display: flex;
+}
+
+.year-segment {
+    border: 1px solid #666;
+}
+
+.year-segment span {
+    position: sticky;
+    left: 0;
+    margin: 4px;
+}
+
+.track-label {
+    position: sticky;
+    left: 0;
+}
+
+.track {
+    margin-bottom: 5px;
+}
+
+.info-box-container {
+    padding: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.close-button {
+    font-family: monospace;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.history-instructions {
+    font-size: 12px;
+    color: #999 !important;
+    margin-bottom: 4px;
+    font-weight: normal;
+}
+
+
+/* -------- */
+
+.block-rect {
+    height: 23px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    padding: 0 2px;
+    position: relative;
+}
+
+/* Text and buttons inside - wide rectangles */
+.block-rect-wide {
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.block-rect-wide .block-btn {
+    position: static;
+    transform: none;
+}
+
+.block-rect-wide .block-info {
+    position: static;
+    text-align: left;
+}
+
+.block-rect-wide .block-btn-right {
+    margin-left: auto;
+}
+
+/* Buttons inside, text outside - medium rectangles */
+.block-rect-medium {
+    justify-content: space-between;
+}
+
+.block-rect-medium .block-btn {
+    position: static;
+    transform: none;
+}
+
+.block-rect-medium .block-info {
+    position: absolute;
+    left: calc(100% + 4px);
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}
+
+/* Buttons and text outside - narrow rectangles */
+.block-rect-narrow {
+    justify-content: center;
+}
+
+.block-rect-narrow .block-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.block-rect-narrow .block-info {
+    position: absolute;
+    left: calc(100% + 28px);
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}
+
+.block-rect-wide .block-info {
+    color: white;
+}
+
+.block-info {
+    font-size: 11px;
+}
+
+.block-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    background-color: #ddd;
+    color: black;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.block-btn:hover {
+    background-color: #ccc;
+}
+
+.block-btn-left {
+    order: -1;
+}
+
+.block-rect-narrow .block-btn-left {
+    right: 100%;
+    margin-right: 4px;
+}
+
+.block-rect-narrow .block-btn-right {
+    left: 100%;
+    margin-left: 4px;
+}

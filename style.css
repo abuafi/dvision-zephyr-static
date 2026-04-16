@@ -1,0 +1,57 @@
+html, body
+{
+    height: 100%;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+}
+
+#canvas
+{
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+
+#overlay {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#overlay * {
+    pointer-events: visible;
+}
+
+#timestamp {
+    margin: 5px;
+}
+
+#info-box{
+    position: fixed;
+}
+
+#animation-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#animation-time-per-year {
+    width: 40px;
+    margin-right: 5px;
+}
+
+#overlay-above {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}

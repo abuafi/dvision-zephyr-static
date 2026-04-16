@@ -1,0 +1,43 @@
+#scrollbar {
+    width: calc(100% - 40px);
+    height: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+#scrollbar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+}
+
+#scrollbar::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+    border: none;
+}
+
+#scrollbar::-moz-range-track {
+    background: transparent;
+    border: none;
+}
+
+#scrollbar::-moz-range-progress {
+    background: #666;
+    border-radius: 5px;
+}

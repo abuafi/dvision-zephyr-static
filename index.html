@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="scrollbar.css">
+        <link rel="stylesheet" href="infoBoxStyle.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="infoBox.js"></script>
+        <script src="main.js"></script>
+    </head>
+    <body onload="init()">
+        <div id="overlay">
+            <div id="overlay-above">
+                <div id="timestamp"></div>
+                <div>
+                <button id="export-svg-frame" onclick="exportFrame()">Export current frame as SVG</button>
+                <button id="export-svg-frame" onclick="exportAllFrames()">Export all frames</button>
+                </div>
+            </div>
+            <div id="overlay-below">
+                <div id="animation-controls">
+                    <button id="startAnimation" onclick="onStartAnimation()">Start Animation</button>
+                    <div><input type="number" id="animation-time-per-year"><span>seconds of animation per year</span></div>
+                </div>
+                <input type="range" id="scrollbar" min="0" max="100" value="0">
+            </div>
+        </div>
+        <div id="info-box"></div>
+        <canvas id="canvas"></canvas>
+        
+    </body>
+</html>
