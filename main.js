@@ -584,6 +584,7 @@ async function init() {
     canvas.addEventListener('touchmove', (e) => handleTouch(e, onPointerMove))
     canvas.addEventListener('wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY))
     canvas.addEventListener('contextmenu', (e) => handleRightClick(e))
+    canvas.addEventListener('dblclick', (e) => handleRightClick(e))
 
     clearGlyphData()
     runAnimationOnce(animationTime())
