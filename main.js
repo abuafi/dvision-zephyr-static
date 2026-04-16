@@ -652,7 +652,6 @@ function runAnimationOnce(seconds) {
     var startingFrame = currentFrame
     var durationRatio = (animationInfo.numberOfFrames - startingFrame) / animationInfo.numberOfFrames
     let millisecondsPerFrame = seconds * 1000 * durationRatio / (animationInfo.numberOfFrames - startingFrame)
-    console.log(animationInfo.numberOfFrames - startingFrame)
     
     var startTime = (new Date()).getTime();
 
@@ -667,9 +666,13 @@ function runAnimationOnce(seconds) {
 
         if (currentFrame < animationInfo.numberOfFrames)  {
             let currentTime = (new Date()).getTime()
-            setTimeout(p, ((currentFrame - startingFrame) * millisecondsPerFrame) - (currentTime - startTime) )
+            const frameDelay = ((currentFrame - startingFrame) * millisecondsPerFrame) - (currentTime - startTime)
+            if (frameDelay > 0) {
+                setTimeout(p, Math.max(frameDelay, 0) )
+            } else {
+                p()
+            }
         } else {
-            console.log((new Date()).getTime() - startTime)
             animationIsRunning = false
         }
     })();
