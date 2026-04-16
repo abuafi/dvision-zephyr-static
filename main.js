@@ -509,7 +509,6 @@ async function getAnimationData() {
         if (line.trim()) { 
             let data = JSON.parse(line)
             frames.push(data)
-            console.log(data)
         }
     }
 }
@@ -586,6 +585,7 @@ async function init() {
     canvas.addEventListener('wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY))
     canvas.addEventListener('contextmenu', (e) => handleRightClick(e))
 
+    clearGlyphData()
     runAnimationOnce(animationTime())
     draw()
 }
@@ -644,6 +644,7 @@ var currentFrame = 0
 function runAnimationOnce(seconds) {
 
     if (currentFrame == animationInfo.numberOfFrames) {
+        clearGlyphData()
         currentFrame = 0
         setScrollbarFrame(currentFrame)
     }
