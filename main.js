@@ -1,9 +1,10 @@
-
+var body
 var canvas
 var animationTimeInput
 var ctx
 var cameraOffset 
 var center 
+var displayCenter
 var cameraZoom = 1
 var MAX_ZOOM = 5
 var MIN_ZOOM = 0.1
@@ -23,6 +24,8 @@ var timestampElement
 var infoBoxElement
 var infoBoxPos = { x: 0, y: 0 }
 var viewTransform
+
+var displayZoom = 1
 
 function clearGlyphData() {
     for (i in glyphs) {
@@ -114,6 +117,18 @@ function mergeGlyphData(newData) {
                 break
             }
         }
+}
+
+function clamp(min, max, value) {
+    return Math.min(max, Math.max(min, value))
+}
+
+function linearstep (min, max, value) {
+   return clamp(0, 1, (value - min) / (max - min));
+}
+
+function lerp(min, max, progress) {
+    return (max - min) * progress + min
 }
 
 function matmul(t1, t2) {
@@ -535,8 +550,13 @@ async function getAllInfoData() {
     }
 }
 
+function setCenter() {
+    center = { x: canvas.clientWidth/2, y: canvas.clientHeight/2 }
+    displayCenter = { x: center.x * displayZoom, y: center.y * displayZoom }
+}
+
 const observer = new ResizeObserver((entries) => {
-  center = { x: canvas.clientWidth/2, y: canvas.clientHeight/2 }
+    setCenter()
 });
 
 const MILLISECONDS_PER_YEAR = 31556952000
@@ -547,11 +567,26 @@ function animationTime() {
     return animationTimeInput.value * durationYears
 }
 
+const MIN_WIDTH_NO_ZOOM = 720
+const MIN_WIDTH_MAX_ZOOM = 320
+const NO_DISPLAY_ZOOM = 1
+const MAX_DISPLAY_ZOOM = 2
+function setDisplayZoom() {
+    console.log(window.screen.width)
+    const progress = linearstep(MIN_WIDTH_MAX_ZOOM, MIN_WIDTH_NO_ZOOM, window.screen.width) 
+    displayZoom = lerp(MAX_DISPLAY_ZOOM, NO_DISPLAY_ZOOM, progress)
+    body.style.zoom = displayZoom
+    console.log(progress, displayZoom)
+}
+
 async function init() { 
+    body = document.querySelector('body')
     timestampElement = document.querySelector('#timestamp')
     infoBoxElement = document.querySelector('#info-box')
     animationTimeInput = document.getElementById("animation-time-per-year")
     animationTimeInput.value = 1
+
+    setDisplayZoom()
 
     await Promise.all([
     getAllDVisionData(),
@@ -567,11 +602,11 @@ async function init() {
 
     ctx = canvas.getContext('2d')
 
-    center = { x: canvas.clientWidth/2, y: canvas.clientHeight/2 }
-    cameraOffset = { x: canvas.clientWidth/2, y: canvas.clientHeight/2 }
+    setCenter()
+    cameraOffset = { x: displayCenter.x, y: displayCenter.y }
     observer.observe(canvas)
 
-    cameraZoom = 1
+    cameraZoom = 1.2
     MAX_ZOOM = 7
     MIN_ZOOM = 0.01
     SCROLL_SENSITIVITY = 0.0005
@@ -599,8 +634,8 @@ async function handleRightClick(event) {
     event.preventDefault()
     let eventPos = getEventLocation(event)
     let pos = {x:0,y:0}
-    pos.x = ((eventPos.x - center.x) / cameraZoom) - cameraOffset.x + center.x
-    pos.y = ((eventPos.y - center.y) / cameraZoom) - cameraOffset.y + center.y
+    pos.x = ((eventPos.x - displayCenter.x) / cameraZoom) - cameraOffset.x + displayCenter.x
+    pos.y = ((eventPos.y - displayCenter.y) / cameraZoom) - cameraOffset.y + displayCenter.y
     // res = await fetch(`http://localhost:422/inspect?x=${pos.x}&y=${pos.y}`)
     // inspectData = await res.json()
     
@@ -668,7 +703,7 @@ function runAnimationOnce(seconds) {
             let currentTime = (new Date()).getTime()
             const frameDelay = ((currentFrame - startingFrame) * millisecondsPerFrame) - (currentTime - startTime)
             if (frameDelay > 0) {
-                setTimeout(p, Math.max(frameDelay, 0) )
+                setTimeout(p, frameDelay)
             } else {
                 p()
             }
@@ -683,11 +718,19 @@ function applyFrame(index) {
     mergeGlyphData(frames[index].glyphData)
 }
 
+function totalZoom() {
+    return cameraZoom / displayZoom
+}
+
+function totalOffset() {
+    return {x: cameraOffset.x / displayZoom, y: cameraOffset.y / displayZoom}
+}
+
 function draw()
 {
     let dsInfoBoxPos = {
-        x:(infoBoxPos.x + cameraOffset.x - center.x) * cameraZoom + center.x,
-        y:(infoBoxPos.y + cameraOffset.y - center.y) * cameraZoom + center.y
+        x:((infoBoxPos.x + cameraOffset.x - displayCenter.x)) * totalZoom() + center.x,
+        y:((infoBoxPos.y + cameraOffset.y - displayCenter.y)) * totalZoom() + center.y
     }
     infoBoxElement.style.translate = `${dsInfoBoxPos.x}px ${dsInfoBoxPos.y}px`
 

@@ -194,11 +194,6 @@ function createInfoBox(infoBoxElement, info) {
     const endOffsetDays = (end - endYearStart) / 86400000
     const endOffsetPixels = endOffsetDays * PIXELS_PER_DAY
 
-    console.log(new Date(blocks[0].startTime))
-    console.log(new Date(startYear, 0, 0))
-    console.log(startOffsetPixels)
-    console.log(endOffsetPixels)
-
     const yearTrack = document.createElement('div');
     yearTrack.className = 'year-track'
     for (let year = startYear; year <= endYear; year++) {
